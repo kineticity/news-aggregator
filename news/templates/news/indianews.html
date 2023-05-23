@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>News Aggregator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta charset="utf-8" >
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      body {
+        font-family: serif;
+      }
+
+      header {
+        width: 100%;
+        background-color: black;
+        position: sticky;
+        display: flex;
+        align-items: center;
+        top: 0;
+        left: 0;
+        z-index: 10;     
+      }
+
+      h1 {
+        color: white;
+        font-family: serif;
+        padding: 0.3rem;
+        font-size: 2rem;
+      }
+
+      h1 a {
+        color: white;
+        text-decoration: none;
+      }
+
+      h1 a:hover {
+        color: white;
+        text-decoration: none;
+      }
+      
+      nav {
+        width: 60vw;
+        display: flex;
+        justify-content: end;
+      }
+      
+      nav a {
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        text-decoration: none;
+        font-size: 1.3rem;
+      }
+      
+      nav a:hover {
+        background-color: rgba(255, 255, 255, 0.7);
+        color: black;
+        text-decoration: none;
+      }
+
+      #india {
+        color: black;
+        background-color: white;
+      }
+
+      #button-div {
+        padding: 3rem;
+      }
+
+      /* #button {
+        text-align: center;
+        cursor: pointer;
+        padding: 0.5rem 1.5rem;
+        font-size: 1.3rem;
+        background: black;
+        color: white;
+        font-family: serif;
+        border-radius: 2rem;
+        text-decoration: none;
+      }
+
+      #button:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+      } */
+
+      .card-hover:hover {
+        box-shadow: 0rem 0rem 1rem 0.2rem grey;
+        cursor: pointer;
+      }
+
+      @media (max-width: 700px) {
+        header {
+          flex-wrap: wrap;
+          align-items: center;
+        }
+        h1 {
+          margin: auto;
+          text-align: center;
+        }
+        nav {
+          width: 100vw;
+          flex-direction: column;
+          text-align: center;
+          top: 0;
+          padding-bottom: 0.5rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        #header h1 {
+          font-size: 1.7rem;
+        }
+      }
+    </style>
+    
+  </head>
+<body>
+
+  
+  
+    <header>
+      <h1><a href="{% url 'scrape' %}">News Aggregator</a></h1>
+
+      <nav>
+        <a href={% url 'worldnews' %}>WorldNews</a>
+        <a id="india" href={% url 'indianews' %}>IndiaNews</a>
+        
+      </nav>
+    </header>
+
+    <div id="button-div">
+
+    </div>
+
+
+     <div class="container">
+        <div class="row">
+          {% for object in object_list %}
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+    <div class="card card-cascade narrower card-hover"><a href="{{object.url}}">
+
+    <!-- Card image -->
+        <div class="view view-cascade overlay">
+          <img class="card-img-top" src="{{ object.image }}"
+            alt="Card image cap">
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+
+    <!-- Card content -->
+    <div class="card-body card-body-cascade">
+
+         
+          <!-- Title -->
+          <h4 class="font-weight-bold card-title">{{object.title}}</h4>
+          <!-- Text -->
+          <p class="card-text">{{ object.description }}</p>
+          <!-- Button -->
+          <a href="{{object.url}}">Read More</a>
+
+    </div>
+  </a></div>
+    </div>
+     {% endfor %}
+  </div>
+</div>
+<!-- Card Narrower -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--
+    <div class="container">
+        <div class="row">
+          {% for object in object_list %}
+          <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                <div class="card">
+                    <img class="card-img-top" src = "{{ object.image }}">
+                    <div class="card-block">
+                        <a href="{{object.url}}"><h5 class="card-title">{{object.title}}</h5></a>
+                        
+                        <div class="card-text">
+                            {{ object.description }}
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    -->
+
+  <!--<div class="card-group vgr-cards" style="padding: 10px; margin: 20px;">
+    {% for object in object_list %}
+    <div class="card" style="width: 18rem;border:5px black solid;">
+  <img class="card-img-top" src = "{{ object.image }}">
+  <div class="card-body">
+    <h5 class="card-title">
+      <div class="card-body">
+           <a href="{{object.url}}"><h5 class="card-title">{{object.title}}</h5></a>
+           <p class="text-justify">{{ object.description }}</p>
+      </div>
+    </h5>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>-->
+    <script
+src="http://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
